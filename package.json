@@ -1,0 +1,35 @@
+{
+  "name": "mobile-app-build-number-manager",
+  "version": "1.0.0",
+  "description": "Web service that will help automate the process of selecting the next app build number ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rohit-moza/mobile-app-build-number-manager.git"
+  },
+  "keywords": [
+    "node",
+    "mongodb",
+    "mobile",
+    "app",
+    "build",
+    "number"
+  ],
+  "author": "Rohit Moza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rohit-moza/mobile-app-build-number-manager/issues"
+  },
+  "homepage": "https://github.com/rohit-moza/mobile-app-build-number-manager#readme",
+  "dependencies": {
+    "angular": "^1.6.4",
+    "angular-route": "^1.6.4",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.17"
+  }
+}
