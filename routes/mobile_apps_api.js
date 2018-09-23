@@ -3,11 +3,11 @@ const router = express.Router();
 
 const AppBuild = require('../models/app-builds');
 
-sendBuildCreatedResponse = (res, newAppBuild) => res.json({success: 200, msg: "New AppBuild Created", app_build: newAppBuild});
-sendBuildUpdatedResponse = (res, updatedAppBuildNumber) => res.json({success: 200, msg: "AppBuild Updated", build_number:  updatedAppBuildNumber});
+sendBuildCreatedResponse = (res, newAppBuild) => res.json({success: 200, msg: `Existing bundle_id not found - New AppBuild Created with bundle_id: ${newAppBuild.bundle_id}`, app_build: newAppBuild});
+sendBuildUpdatedResponse = (res, updatedAppBuildBundleId, updatedAppBuildNumber) => res.json({success: 200, msg: `AppBuild:${updatedAppBuildBundleId} updated. The New build number is ${updatedAppBuildNumber}`});
 sendUpdateCreateFailedResponse = (res, err) => res.json({success: 400, err: err});
-sendUpdateAppBuildFailedResponse = (res) => res.json({success: 400, err: "New Build number < Exisiting Build number. Update Failed"});
-sendAppFoundResponse = (res, appBuildNumber) => res.json({success: 200, build_number: appBuildNumber});
+sendUpdateAppBuildFailedResponse = (res, existingBuildNumber) => res.json({success: 400, err: `New Build number < Exisiting Build number. Update Failed. Existing Build number = ${existingBuildNumber}`});
+sendAppFoundResponse = (res, appBuildId, appBuildNumber) => res.json({success: 200, msg: `The Build Number is ${appBuildNumber} (for ${appBuildId})`});
 sendAppNotFoundResponse = (res) => res.json({success: 400, err: "Bunlde id not found"});
 
 constructAppBuildObject = (bundle_id, buildNumber=0) => new AppBuild({ bundle_id: bundle_id, build_number: buildNumber})
@@ -33,7 +33,7 @@ updateAppBuild = (existingAppBuild, newBuildNumber, res) => {
     if(err) {
       sendUpdateCreateFailedResponse(res, err);
     } else {
-      sendBuildUpdatedResponse(res, updatedAppBuild.build_number);
+      sendBuildUpdatedResponse(res, updatedAppBuild.bundle_id, updatedAppBuild.build_number);
     }
   });
 
@@ -43,11 +43,10 @@ updateAppBuild = (existingAppBuild, newBuildNumber, res) => {
 router.get('/read', (req, res) => {
 
   let bundleId = req.query.bundle_id;
-    console.log(bundleId);
 
   AppBuild.getAppBuildByBundleId(bundleId, (err, foundAppBuild) => {
     if (foundAppBuild) {
-      sendAppFoundResponse(res, foundAppBuild.build_number);
+      sendAppFoundResponse(res, foundAppBuild.bundle_id, foundAppBuild.build_number);
     } else {
       sendAppNotFoundResponse(res);
     }
@@ -66,7 +65,7 @@ router.post('/set', (req, res) => {
       if (newBuildNumber > AppBuildFound.build_number){
         updateAppBuild(AppBuildFound, newBuildNumber, res);
       } else {
-        sendUpdateAppBuildFailedResponse(res);
+        sendUpdateAppBuildFailedResponse(res, AppBuildFound.build_number);
       }
     }
   })
