@@ -16,18 +16,14 @@ mongoose.connection.on('error', (err) => {
   console.log('Database error:' + err);
 });
 
-
 const app = express();
 const mobile_apps_api = require('./routes/mobile_apps_api');
 const port = 3000;
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')))
+app.use('/api/', mobile_apps_api);
 app.use(bodyParser.json());
 
-app.use('/api/', mobile_apps_api);
-app.get('/', (req, res) =>res.send('Invalid Enpoint'));
-
 app.listen(port);
-
 app.listen(port, () =>console.log(`Server Started on port ${port}`));   

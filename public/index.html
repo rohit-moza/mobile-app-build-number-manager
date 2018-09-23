@@ -1,26 +1,92 @@
 <!doctype html>
 <html ng-app="angularApp">
   <head>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+    <!-- Bootstrap add in -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.min.js"></script>
+    <link rel="stylesheet" href="./index.css">
     <script src="index.js"></script>
   </head>
   <body>
-    <div ng-controller="indexCtrl as app">
-      <!-- <input
-        type="text"
-        ng-model="name1"
-        placeholder="Using $scope variable name"
-      />
-      <br />
-      <input
-        type="text"
-        ng-model="app.name2"
-        placeholder="Using this variable name"
-      />
-      <br /><br />
-      <h2 ng-if="name1 != ''"> Hello {{name1}} </h2>
-      <br /> -->
-      <h2>{{heading}}</h2>
+    <div class="bg-img"></div>
+    <div class="body-container">
+      <div ng-controller="indexCtrl as app">
+        <div class="heading-section">
+          <h1><u>App Build Number Manager</u></h1>
+          <div ng-if="status === 200" class="alert alert-success">
+          <strong>Success!</strong> Request Successful
+          </div>
+          <div ng-if="err" class="alert alert-danger">
+            <strong>Error!</strong> {{ err }}
+          </div>
+        </div>
+        <div class="api-request-section">
+          <div class="api-request-section-item">
+            <h2>Read API</h2>
+            <div class="input-form" style="width: 400px;">
+              <input
+              type="text"
+              ng-model="readBundleId"
+              placeholder="Enter bundle_id"
+              class="input-boxes"
+              />
+              <button class="submit w3-btn w3-ripple w3-blue" ng-click="readBuildNumber()">
+                SUBMIT
+              </button>
+              <div ng-if="returnedReadBuildNumber" class="alert alert-info returned-response">
+                <strong>Returned Build Number:</strong> {{ returnedReadBuildNumber}} 
+              </div>
+            </div>
+          </div>
+        </div> 
+        <div class="api-request-section">
+          <div class="api-request-section-item">
+            <h2>Set API</h2>
+            <div class="input-form" style="width: 400px;">
+              <input
+              type="text"
+              ng-model="readBundleId"
+              placeholder="Enter bundle_id"
+              class="input-boxes"
+              />
+              <button class="submit w3-btn w3-ripple w3-blue" ng-click="readBuildNumber()">
+                SUBMIT
+              </button>
+              <div ng-if="returnedReadBuildNumber" class="alert alert-info returned-response">
+                <strong>Returned Build Number:</strong> {{ returnedReadBuildNumber}} 
+              </div>
+            </div>
+          </div>
+        </div> 
+          <div class="api-request-section">
+          <div class="api-request-section-item">
+            <h2>Bump API</h2>
+            <div class="input-form" style="width: 400px;">
+              <input
+              type="text"
+              ng-model="readBundleId"
+              placeholder="Enter bundle_id"
+              class="input-boxes"
+              />
+              <button class="submit w3-btn w3-ripple w3-blue" ng-click="readBuildNumber()">
+                SUBMIT
+              </button>
+              <div ng-if="returnedReadBuildNumber" class="alert alert-info returned-response">
+                <strong>Returned Build Number:</strong> {{ returnedReadBuildNumber}} 
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div>
     </div>
+   
  </body>
 </html>
