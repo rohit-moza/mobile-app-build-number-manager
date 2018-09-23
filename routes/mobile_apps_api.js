@@ -41,7 +41,6 @@ updateAppBuild = (existingAppBuild, newBuildNumber, res) => {
 
 
 router.get('/read', (req, res) => {
-
   let bundleId = req.query.bundle_id;
 
   AppBuild.getAppBuildByBundleId(bundleId, (err, foundAppBuild) => {
@@ -55,7 +54,6 @@ router.get('/read', (req, res) => {
 });
 
 router.post('/set', (req, res) => {
-
   let reqBundleId = req.body.bundle_id;
   let newBuildNumber = req.body.build_number;
 
