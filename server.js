@@ -21,9 +21,10 @@ const mobile_apps_api = require('./routes/mobile_apps_api');
 const port = 3000;
 
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'public')))
-app.use('/api/', mobile_apps_api);
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
+app.use('/api/', mobile_apps_api);
+
 
 app.listen(port);
 app.listen(port, () =>console.log(`Server Started on port ${port}`));   

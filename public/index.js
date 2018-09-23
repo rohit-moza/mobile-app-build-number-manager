@@ -1,4 +1,4 @@
-angular.module('angularApp', []).controller('indexCtrl', function($scope, $http) {
+angular.module('angularApp', []).controller('indexCtrl', function($scope, $http, $httpParamSerializer) {
   $scope.returnedReadBuildNumber = null;
   $scope.err = null;
   $scope.status = null;
@@ -31,13 +31,9 @@ angular.module('angularApp', []).controller('indexCtrl', function($scope, $http)
 
   
   $scope.setBuildNumber = function() {
-    $http({method: 'POST', url: '/api/set'}).
-      then(function(res) {
-        $scope.returnedReadBuildNumber = res.data.build_number;
-        $scope.err = res.data.err;
-        $scope.status = res.data.success;
-      }, function(res) {
-        // IF ERROR
+    $http.post("/api/set", {'bundle_id': $scope.setBundleId}, {headers: {'Content-Type': 'application/json'} })
+        .then(function (response) {
+            return response;
     });
   }
 
