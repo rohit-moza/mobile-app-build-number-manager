@@ -8,7 +8,7 @@ sendBuildUpdatedResponse = (res, updatedAppBuildNumber) => res.json({success: 20
 sendUpdateCreateFailedResponse = (res, err) => res.json({success: 400, err: err});
 sendUpdateAppBuildFailedResponse = (res) => res.json({success: 400, err: "New Build number < Exisiting Build number. Update Failed"});
 sendAppFoundResponse = (res, appBuildNumber) => res.json({success: 200, build_number: appBuildNumber});
-sendAppNotFoundResponse = (res) => res.json({success: 400, err: "Build id not found"});
+sendAppNotFoundResponse = (res) => res.json({success: 400, err: "Bunlde id not found"});
 
 constructAppBuildObject = (bundle_id, buildNumber=0) => new AppBuild({ bundle_id: bundle_id, build_number: buildNumber})
 
@@ -41,7 +41,9 @@ updateAppBuild = (existingAppBuild, newBuildNumber, res) => {
 
 
 router.get('/read', (req, res) => {
+
   let bundleId = req.query.bundle_id;
+    console.log(bundleId);
 
   AppBuild.getAppBuildByBundleId(bundleId, (err, foundAppBuild) => {
     if (foundAppBuild) {

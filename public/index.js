@@ -4,23 +4,58 @@ angular.module('angularApp', []).controller('indexCtrl', function($scope, $http)
   $scope.status = null;
   $scope.serverMessage = null;
   $scope.readBundleId = null;
+  $scope.setBundleId = null;
+  $scope.bumpBundleId = null;
 
+  $scope.validateRequestFormat = function(reqBundleId) {
+    let regex = /^(com)+(\.\w+){2}$/g;
+    let found = reqBundleId.match(regex);
+    if(!found) {
+      $scope.err = 'Invalid Request format. The Valid format is: com.[COMPANY].[APP-NAME] e.g.com.sagomini.HomeworkChallenge'
+      return false;
+    }
+    return true;
+  }
 
 
   $scope.readBuildNumber = function() {
-      // READ
     $http({method: 'GET', url: `/api/read?bundle_id=${$scope.readBundleId}`}).
       then(function(res) {
         $scope.returnedReadBuildNumber = res.data.build_number;
         $scope.err = res.data.err;
         $scope.status = res.data.success;
       }, function(res) {
-        // IT ERROR
+        // IF ERROR
+    });
+  }
+
+  
+  $scope.setBuildNumber = function() {
+    $http({method: 'POST', url: '/api/set'}).
+      then(function(res) {
+        $scope.returnedReadBuildNumber = res.data.build_number;
+        $scope.err = res.data.err;
+        $scope.status = res.data.success;
+      }, function(res) {
+        // IF ERROR
+    });
+  }
+
+   $scope.bumpBuildNumber = function() {
+    $http({method: 'POST', url: '/api/set'}).
+      then(function(res) {
+        $scope.returnedReadBuildNumber = res.data.build_number;
+        $scope.err = res.data.err;
+        $scope.status = res.data.success;
+      }, function(res) {
+        // IF ERROR
     });
   }
 
 
 
-  //
+
+
+
 
 })
