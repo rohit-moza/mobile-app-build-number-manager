@@ -7,4 +7,4 @@
 * App Runs on http://localhost:3000/
 
 ## General comments
-* All Server Responses can be seen on the top of the package
+* All Server Responses can be seen on the top of the page
